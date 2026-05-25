@@ -4,7 +4,7 @@ const fs = require('fs');
 
 (async () => {
   // Ambil nama file dari command line argument
-  const htmlFile = process.argv[2] || 'aldoferdii_carousel_template_poppins.html';
+  const htmlFile = process.argv[2] || 'aldoferdii_jasa_joki_promo_v2.html';
   
   // Cek apakah file ada
   if (!fs.existsSync(htmlFile)) {
