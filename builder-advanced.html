@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Carousel Builder - AldoFerdii.Solusi</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f0f4f8; overflow-x: hidden; }
+
+    .container { max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
+
+    /* Header */
+    .header { grid-column: 1/-1; background: white; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .header h1 { font-size: 24px; color: #07162d; font-weight: 800; }
+    .header a { padding: 10px 20px; background: #e8eef6; color: #185abd; text-decoration: none; border-radius: 8px; font-weight: 700; }
+
+    /* Left Panel */
+    .left-panel { background: white; border-radius: 12px; padding: 20px; max-height: 90vh; overflow-y: auto; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .left-panel h2 { font-size: 18px; color: #07162d; margin-bottom: 20px; font-weight: 700; }
+
+    .slide-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
+    .slide-tab { padding: 10px; border: 2px solid #d0d8e4; background: white; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; text-align: center; transition: all 0.2s; }
+    .slide-tab.active { border-color: #185abd; background: #185abd; color: white; }
+
+    .form-section { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #e0e8f0; }
+    .form-section h3 { font-size: 13px; color: #5a6b7f; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 15px; }
+
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 12px; color: #5a6b7f; margin-bottom: 6px; font-weight: 600; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 8px 12px; border: 1px solid #d0d8e4; border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 12px; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #185abd; box-shadow: 0 0 0 3px rgba(24,90,189,0.1); }
+    .form-group textarea { min-height: 70px; resize: vertical; }
+
+    .color-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .color-box { aspect-ratio: 1; border: 3px solid transparent; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+    .color-box.active { border-color: #07162d; box-shadow: 0 0 0 2px white, 0 0 0 4px #07162d; }
+    .color-box:hover { transform: scale(1.05); }
+
+    .btn-group { display: flex; gap: 10px; }
+    .btn { flex: 1; padding: 10px; border: none; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: #185abd; color: white; }
+    .btn-primary:hover { background: #1444a0; }
+    .btn-secondary { background: #e8eef6; color: #185abd; border: 2px solid #185abd; }
+
+    /* Right Panel - Preview */
+    .right-panel { grid-column: 2; background: #f5f8fc; border-radius: 12px; padding: 30px; display: flex; align-items: center; justify-content: center; min-height: 90vh; }
+
+    .preview-wrapper { position: relative; width: 100%; max-width: 540px; }
+
+    .slide-preview {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, #07162d 0%, #10294a 100%);
+      border-radius: 20px;
+      padding: 40px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      font-size: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide-preview::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 9% 9%, rgba(43,120,214,.22), transparent 27%), radial-gradient(circle at 88% 14%, rgba(255,255,255,.08), transparent 22%);
+      pointer-events: none;
+    }
+
+    .preview-header { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; }
+    .preview-brand { font-size: 16px; font-weight: 800; }
+    .preview-brand .blue { color: #4d9aff; }
+    .preview-no { font-size: 13px; font-weight: 700; opacity: 0.8; }
+
+    .preview-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 20px 0; }
+
+    .preview-title { font-size: 32px; font-weight: 700; line-height: 1.25; margin-bottom: 15px; }
+    .preview-desc { font-size: 14px; opacity: 0.9; line-height: 1.5; }
+
+    .preview-content { background: white; color: #07162d; border-radius: 14px; padding: 20px; margin: 20px 0; }
+    .preview-content-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+    .preview-content-text { font-size: 12px; line-height: 1.5; color: #5a6b7f; }
+
+    .preview-footer { position: relative; z-index: 2; font-size: 12px; opacity: 0.9; }
+
+    /* Bottom Controls */
+    .bottom-controls { grid-column: 1/-1; background: white; padding: 20px; border-radius: 12px; display: flex; gap: 15px; flex-wrap: wrap; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .export-btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.2s; flex: 1; min-width: 150px; }
+    .export-btn.download-png { background: #217346; color: white; }
+    .export-btn.download-png:hover { background: #1a5c3a; }
+    .export-btn.download-html { background: #185abd; color: white; }
+    .export-btn.download-html:hover { background: #1444a0; }
+
+    @media (max-width: 1200px) {
+      .container { grid-template-columns: 1fr; }
+      .right-panel { grid-column: 1; }
+      .left-panel { max-height: auto; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f0f4f8; }
+    ::-webkit-scrollbar-thumb { background: #d0d8e4; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎨 Advanced Carousel Builder</h1>
+    <a href="index.html">← Kembali</a>
+  </div>
+
+  <div class="container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <h2>✏️ Edit Slide</h2>
+
+      <div class="slide-tabs" id="slideTabs"></div>
+
+      <div class="form-section">
+        <h3>🏢 Brand & Header</h3>
+        <div class="form-group">
+          <label>Nama Brand</label>
+          <input type="text" id="brandName" value="AldoFerdii" placeholder="Brand name" />
+        </div>
+        <div class="form-group">
+          <label>Nomor Slide (Contoh: 02 / 05)</label>
+          <input type="text" id="slideNo" placeholder="02 / 05" />
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>🏷️ Badge & Judul</h3>
+        <div class="form-group">
+          <label>Badge/Kategori</label>
+          <input type="text" id="slideBadge" placeholder="EDUKASI MICROSOFT EXCEL" />
+        </div>
+        <div class="form-group">
+          <label>Judul Slide</label>
+          <textarea id="slideTitle" placeholder="Judul utama slide..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Deskripsi Slide</label>
+          <textarea id="slideDesc" placeholder="Deskripsi singkat..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>📦 Content Card</h3>
+        <div class="form-group">
+          <label>Heading Card</label>
+          <input type="text" id="cardTitle" placeholder="Misal: Manfaat memakai Formula" />
+        </div>
+        <div class="form-group">
+          <label>Isi Card</label>
+          <textarea id="cardText" placeholder="Teks konten di dalam card..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>🎨 Warna Background</h3>
+        <div class="color-grid">
+          <div class="color-box" style="background: linear-gradient(135deg, #07162d, #10294a);" onclick="setColor('word')" title="Word Blue"></div>
+          <div class="color-box" style="background: linear-gradient(135deg, #1a5c3a, #2a8c56);" onclick="setColor('excel')" title="Excel Green"></div>
+          <div class="color-box" style="background: linear-gradient(135deg, #667eea, #764ba2);" onclick="setColor('purple')" title="Purple"></div>
+          <div class="color-box" style="background: linear-gradient(135deg, #f093fb, #f5576c);" onclick="setColor('pink')" title="Pink"></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>👤 Footer</h3>
+        <div class="form-group">
+          <label>Footer Text</label>
+          <input type="text" id="footerText" placeholder="@solusi.by.aldoferdii" />
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="updatePreview()">🔄 Update Preview</button>
+        <button class="btn btn-secondary" onclick="resetSlide()">Reset</button>
+      </div>
+    </div>
+
+    <!-- Right Panel - Preview -->
+    <div class="right-panel">
+      <div class="preview-wrapper">
+        <div class="slide-preview" id="slidePreview">
+          <div class="preview-header">
+            <div class="preview-brand">Aldo<span class="blue">Ferdii</span></div>
+            <div class="preview-no" id="previewNo">02 / 05</div>
+          </div>
+          <div>
+            <div class="preview-badge" id="previewBadge">EDUKASI</div>
+            <h1 class="preview-title" id="previewTitle">Slide Title</h1>
+            <p class="preview-desc" id="previewDesc">Slide description</p>
+            <div class="preview-content" id="previewContent" style="display:none;">
+              <div class="preview-content-title" id="previewCardTitle">Content Title</div>
+              <div class="preview-content-text" id="previewCardText">Content text</div>
+            </div>
+          </div>
+          <div class="preview-footer" id="previewFooter">@solusi.by.aldoferdii</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Controls -->
+    <div class="bottom-controls">
+      <input type="text" id="templateName" placeholder="Nama template (default: carousel_template)" style="flex: 1; padding: 10px; border: 1px solid #d0d8e4; border-radius: 6px;" />
+      <button class="export-btn download-png" onclick="downloadSlidePNG()">📸 Download Slide PNG</button>
+      <button class="export-btn download-html" onclick="downloadHTML()">⬇️ Download HTML</button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 5;
+    const slides = {};
+    let currentColor = 'word';
+
+    const colors = {
+      word: 'linear-gradient(135deg, #07162d 0%, #10294a 100%)',
+      excel: 'linear-gradient(135deg, #1a5c3a 0%, #2a8c56 100%)',
+      purple: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      pink: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+    };
+
+    function initSlides() {
+      for (let i = 1; i <= totalSlides; i++) {
+        slides[i] = {
+          brand: 'AldoFerdii',
+          no: `0${i} / 0${totalSlides}`,
+          badge: i === 1 ? 'EDUKASI MICROSOFT EXCEL' : `LANGKAH ${i-1}`,
+          title: i === 1 ? 'Cara Menggunakan Formula dan Function di Excel' : `Langkah ${i-1}`,
+          desc: i === 1 ? 'Master formula Excel agar laporan dan analisis data kamu lebih cepat dan akurat.' : 'Pelajari langkah ini dengan seksama',
+          cardTitle: i === 1 ? 'Manfaat memakai Formula' : '',
+          cardText: i === 1 ? 'Hitung otomatis, update real-time, analisis data besar, laporan profesional' : '',
+          footer: '@solusi.by.aldoferdii',
+          color: 'word'
+        };
+      }
+      renderTabs();
+      selectSlide(1);
+    }
+
+    function renderTabs() {
+      const container = document.getElementById('slideTabs');
+      container.innerHTML = '';
+      for (let i = 1; i <= totalSlides; i++) {
+        const btn = document.createElement('button');
+        btn.className = `slide-tab ${i === currentSlide ? 'active' : ''}`;
+        btn.textContent = `Slide ${i}`;
+        btn.onclick = () => selectSlide(i);
+        container.appendChild(btn);
+      }
+    }
+
+    function selectSlide(num) {
+      currentSlide = num;
+      renderTabs();
+      loadSlideData();
+    }
+
+    function loadSlideData() {
+      const slide = slides[currentSlide];
+      document.getElementById('brandName').value = slide.brand;
+      document.getElementById('slideNo').value = slide.no;
+      document.getElementById('slideBadge').value = slide.badge;
+      document.getElementById('slideTitle').value = slide.title;
+      document.getElementById('slideDesc').value = slide.desc;
+      document.getElementById('cardTitle').value = slide.cardTitle;
+      document.getElementById('cardText').value = slide.cardText;
+      document.getElementById('footerText').value = slide.footer;
+      currentColor = slide.color;
+      setColorUI();
+      updatePreview();
+    }
+
+    function setColor(color) {
+      currentColor = color;
+      setColorUI();
+      updatePreview();
+    }
+
+    function setColorUI() {
+      document.querySelectorAll('.color-box').forEach((el, i) => {
+        el.classList.remove('active');
+      });
+      const colorNames = ['word', 'excel', 'purple', 'pink'];
+      const idx = colorNames.indexOf(currentColor);
+      if (idx >= 0) document.querySelectorAll('.color-box')[idx].classList.add('active');
+    }
+
+    function updatePreview() {
+      const brand = document.getElementById('brandName').value;
+      const no = document.getElementById('slideNo').value;
+      const badge = document.getElementById('slideBadge').value;
+      const title = document.getElementById('slideTitle').value;
+      const desc = document.getElementById('slideDesc').value;
+      const cardTitle = document.getElementById('cardTitle').value;
+      const cardText = document.getElementById('cardText').value;
+      const footer = document.getElementById('footerText').value;
+
+      slides[currentSlide] = { brand, no, badge, title, desc, cardTitle, cardText, footer, color: currentColor };
+
+      document.getElementById('previewBadge').textContent = badge;
+      document.getElementById('previewTitle').textContent = title;
+      document.getElementById('previewDesc').textContent = desc;
+      document.getElementById('previewNo').textContent = no;
+      document.getElementById('previewFooter').textContent = footer;
+
+      const cardContent = document.getElementById('previewContent');
+      if (cardTitle) {
+        document.getElementById('previewCardTitle').textContent = cardTitle;
+        document.getElementById('previewCardText').textContent = cardText;
+        cardContent.style.display = 'block';
+      } else {
+        cardContent.style.display = 'none';
+      }
+
+      document.getElementById('slidePreview').style.background = colors[currentColor];
+    }
+
+    function resetSlide() {
+      const num = currentSlide;
+      slides[num] = {
+        brand: 'AldoFerdii',
+        no: `0${num} / 0${totalSlides}`,
+        badge: 'EDUKASI',
+        title: `Slide ${num}`,
+        desc: 'Deskripsi slide',
+        cardTitle: '',
+        cardText: '',
+        footer: '@aldoferdii',
+        color: 'word'
+      };
+      currentColor = 'word';
+      loadSlideData();
+    }
+
+    async function downloadSlidePNG() {
+      const templateName = document.getElementById('templateName').value || 'carousel_template';
+      try {
+        const preview = document.getElementById('slidePreview');
+        const canvas = await html2canvas(preview, { scale: 2, useCORS: true, logging: false });
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = `${templateName}-slide-${currentSlide}.png`;
+        link.click();
+        alert('✅ Slide downloaded!');
+      } catch (err) {
+        alert('❌ Error: ' + err.message);
+      }
+    }
+
+    function downloadHTML() {
+      const templateName = document.getElementById('templateName').value || 'carousel_template';
+      let slidesHTML = '';
+      
+      for (let i = 1; i <= totalSlides; i++) {
+        const s = slides[i];
+        const colorGradients = {
+          word: 'linear-gradient(135deg,#07162d 0%,#10294a 100%)',
+          excel: 'linear-gradient(135deg,#1a5c3a 0%,#2a8c56 100%)',
+          purple: 'linear-gradient(135deg,#667eea 0%,#764ba2 100%)',
+          pink: 'linear-gradient(135deg,#f093fb 0%,#f5576c 100%)'
+        };
+
+        const cardHTML = s.cardTitle ? `<div style="background:white;color:#07162d;border-radius:14px;padding:20px;margin:20px 0;"><h3 style="font-size:16px;font-weight:700;margin-bottom:12px;">${s.cardTitle}</h3><p style="font-size:14px;color:#5a6b7f;line-height:1.5;">${s.cardText}</p></div>` : '';
+
+        slidesHTML += `<section class="slide" id="slide-${i}" style="background:${colorGradients[s.color]}">
+      <div style="position:absolute;right:30px;top:30px;font-size:13px;font-weight:700;opacity:0.8;">${s.no}</div>
+      <div style="display:inline-block;background:rgba(255,255,255,0.2);padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;margin:20px 0;">${s.badge}</div>
+      <h1 style="font-size:42px;font-weight:700;line-height:1.25;margin:20px 0;max-width:600px;">${s.title}</h1>
+      <p style="font-size:16px;opacity:0.9;line-height:1.5;max-width:600px;margin:20px 0;">${s.desc}</p>
+      ${cardHTML}
+      <div style="position:absolute;bottom:30px;left:30px;font-size:12px;opacity:0.9;">${s.footer}</div>
+    </section>`;
+      }
+
+      const html = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>${templateName}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #dfe7f3; }
+    .deck { display: flex; width: max-content; }
+    .slide { width: 1080px; height: 1350px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; font-family: 'Poppins', sans-serif; position: relative; padding: 60px; }
+    .slide::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 9% 9%, rgba(43,120,214,.22), transparent 27%), radial-gradient(circle at 88% 14%, rgba(255,255,255,.08), transparent 22%); pointer-events: none; }
+  </style>
+</head>
+<body>
+  <main class="deck">
+${slidesHTML}
+  </main>
+</body>
+</html>`;
+
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${templateName}.html`;
+      a.click();
+      alert('✅ HTML downloaded! Run: node export.js ' + a.download);
+    }
+
+    initSlides();
+  </script>
+</body>
+</html>

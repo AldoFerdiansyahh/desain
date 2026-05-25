@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AldoFerdii.Solusi - Prompt Engineering Mastery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root{
+      --navy:#07162d;
+      --navy-2:#0d2340;
+      --navy-3:#102b4e;
+      --ai:#10a981;
+      --ai-2:#34d399;
+      --ai-soft:#d1fae5;
+      --paper:#ffffff;
+      --ink:#102033;
+      --muted:#6b7b93;
+      --line:#d8e0ec;
+      --soft:#f5f8fc;
+      --shadow:rgba(6,18,38,.18);
+    }
+
+    *{box-sizing:border-box;font-family:'Poppins',sans-serif!important}
+    body{margin:0;background:#dfe7f3;color:#fff}
+    .deck{display:flex;width:max-content;gap:0}
+    .slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:linear-gradient(135deg,var(--navy) 0%,#0b1d35 55%,#10294a 100%)}
+    .slide::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 9% 9%,rgba(16,169,137,.22),transparent 27%),radial-gradient(circle at 88% 14%,rgba(255,255,255,.08),transparent 22%);pointer-events:none}
+    .slide::after{content:"";position:absolute;right:-260px;bottom:-280px;width:680px;height:680px;border-radius:50%;background:rgba(16,169,137,.11);border:1px solid rgba(255,255,255,.08)}
+
+    .brand{position:absolute;left:72px;top:58px;font-weight:800;font-size:34px;letter-spacing:-1.2px;z-index:5}
+    .brand .blue{color:#4d9aff}.brand .gray{color:#93a4ba}
+    .slide-no{position:absolute;right:72px;top:64px;font-size:18px;font-weight:700;color:#9db1ca;z-index:5}
+    .pill{position:absolute;left:72px;top:138px;display:inline-flex;align-items:center;gap:10px;padding:12px 24px;border-radius:999px;background:rgba(16,169,137,.95);box-shadow:0 14px 32px rgba(16,169,137,.25);font-size:16px;font-weight:700;letter-spacing:.2px;color:#fff;z-index:5}
+
+    .title{position:absolute;left:72px;top:215px;width:535px;margin:0;color:#fff;font-size:58px;line-height:1.16;font-weight:500;letter-spacing:-1.6px;z-index:5}
+    .title strong{font-weight:700;color:#a7f3d0}
+    .subtitle{position:absolute;left:72px;top:600px;width:500px;color:#d8e5f6;font-size:24px;line-height:1.5;font-weight:400;z-index:5}
+
+    .cover-list{position:absolute;left:72px;top:755px;width:500px;z-index:5}
+    .mini-point{display:flex;gap:14px;align-items:flex-start;margin:20px 0;padding:18px 20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.065);border-radius:22px;backdrop-filter:blur(8px)}
+    .mini-point .check{width:28px;height:28px;min-width:28px;border-radius:50%;display:grid;place-items:center;background:var(--ai-2);font-weight:800;font-size:16px;margin-top:2px}
+    .mini-point span:last-child{font-size:21px;line-height:1.32;color:#edf5ff;font-weight:500}
+
+    .footer{position:absolute;left:72px;bottom:48px;color:#dce8f8;font-size:14px;line-height:1.55;z-index:5}
+    .footer p{margin:5px 0}.footer .small{margin-top:18px;color:#9fb2ca}
+    .cta{position:absolute;right:72px;bottom:54px;background:#fff;color:var(--ai);font-size:20px;font-weight:700;border-radius:999px;padding:13px 28px;box-shadow:0 18px 45px rgba(0,0,0,.2);z-index:5}
+
+    /* Prompt window visual */
+    .ai-window{position:absolute;right:62px;top:222px;width:410px;height:645px;background:#fff;color:var(--ink);border-radius:28px;box-shadow:22px 26px 0 rgba(255,255,255,.13),0 34px 70px rgba(0,0,0,.28);overflow:hidden;z-index:4;border:1px solid rgba(255,255,255,.65)}
+    .ai-top{height:44px;background:var(--ai);color:#fff;display:flex;align-items:center;padding:0 18px;gap:10px;font-size:13px;font-weight:600}
+    .ai-logo{width:28px;height:28px;border-radius:7px;background:#10a981;display:grid;place-items:center;font-weight:800;font-size:18px}
+    .window-dot{margin-left:auto;display:flex;gap:7px}.window-dot span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.75)}
+    .ai-tabs{height:34px;background:#f6f8fc;border-bottom:1px solid #dce3ef;display:flex;align-items:center;gap:15px;padding:0 18px;font-size:10px;color:#3b4e68;font-weight:600}
+    .ai-tabs b{color:var(--ai);border-bottom:3px solid var(--ai);height:34px;display:flex;align-items:center}
+    .prompt-box{margin:18px auto;width:330px;height:430px;background:#f0fdf4;border:2px solid var(--ai);box-shadow:0 14px 36px rgba(16,32,51,.12);padding:20px;border-radius:8px;position:relative;overflow:hidden}
+    .prompt-box::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(16,169,137,.08),transparent);pointer-events:none}
+    .prompt-label{font-size:11px;font-weight:700;color:#10a981;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+    .prompt-text{font-size:13px;line-height:1.4;color:#102033;font-weight:500}
+
+    .content-title{position:absolute;left:72px;top:200px;width:610px;margin:0;font-size:48px;line-height:1.22;font-weight:700;letter-spacing:-1.2px;z-index:5}.content-title .green{color:#a7f3d0}
+    .lead{position:absolute;left:72px;top:350px;width:600px;font-size:22px;line-height:1.5;color:#dce8f7;font-weight:400;z-index:5}
+    .main-card{position:absolute;left:72px;right:72px;top:510px;background:#fff;color:var(--ink);border-radius:34px;padding:34px;box-shadow:0 22px 60px rgba(0,0,0,.22);z-index:5}
+    .main-card.narrow{right:auto;width:596px}.main-card h3{font-size:28px;line-height:1.2;margin:0 0 20px;font-weight:700;color:#102033}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}.step-list{display:grid;gap:15px}
+    .step{display:flex;gap:14px;align-items:flex-start;background:#f0fdf4;border:1px solid #dcfce7;padding:20px;border-radius:22px;min-height:132px}
+    .step.compact{min-height:auto;padding:16px 18px}.num{width:34px;height:34px;min-width:34px;border-radius:50%;background:var(--ai-2);display:grid;place-items:center;color:#fff;font-size:16px;font-weight:800}.step b{display:block;font-size:19px;line-height:1.25;color:#102033;font-weight:700}.step span:last-child{display:block;margin-top:4px;font-size:16px;line-height:1.35;color:#53657c;font-weight:400}
+    .quote{position:absolute;left:72px;bottom:166px;width:560px;font-size:22px;line-height:1.45;color:#e8f1ff;z-index:5}.quote strong{color:#a7f3d0;font-weight:700}
+    .mini-footer{position:absolute;left:72px;right:72px;bottom:42px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#d5e2f3;z-index:5}.progress{display:flex;gap:8px}.progress span{width:42px;height:6px;border-radius:99px;background:#274d79}.progress span.active{background:#34d399}
+
+    .mini-ai{position:absolute;right:72px;bottom:175px;width:330px;background:#fff;color:var(--ink);border-radius:28px;box-shadow:10px 10px 0 rgba(255,255,255,.15),0 24px 52px rgba(0,0,0,.22);overflow:hidden;z-index:5}.mini-ai .top{height:42px;background:var(--ai);color:#fff;display:flex;align-items:center;padding:0 16px;font-size:12px;font-weight:700}.mini-ai .tabs{height:36px;background:#f7f9fc;border-bottom:1px solid #e0e7f0;display:flex;align-items:center;gap:10px;padding:0 14px;font-size:9px;color:#5a6c82}.mini-ai .sheet{padding:16px;font-size:12px;line-height:1.5;color:#102033}
+
+    .avoid{position:absolute;right:72px;top:205px;width:340px;z-index:5}.avoid-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:20px;margin-bottom:16px}.avoid-card b{display:block;font-size:20px;font-weight:700;color:#fff}.avoid-card p{font-size:15px;line-height:1.35;color:#d0dbea;margin:7px 0 0}
+    .final-panel{position:absolute;left:72px;right:72px;top:462px;background:#fff;color:var(--ink);border-radius:36px;padding:42px;box-shadow:0 26px 70px rgba(0,0,0,.25);z-index:5}.final-panel h2{font-size:38px;line-height:1.18;margin:0 0 18px;font-weight:700}.final-panel p{font-size:23px;line-height:1.45;color:#43546b}.toc-lines{margin-top:26px}.toc-row{display:flex;align-items:center;gap:14px;margin:14px 0;font-size:21px;font-weight:700;color:#102033}.toc-row::before{content:"";width:20px;height:20px;border-radius:6px;background:var(--ai-2)}.toc-row span{flex:1;border-bottom:3px dotted #b9c6d8;height:14px}.final-cta{position:absolute;left:72px;right:72px;bottom:150px;background:linear-gradient(90deg,var(--ai),var(--ai-2));border-radius:28px;padding:31px 34px;font-size:27px;line-height:1.35;font-weight:700;box-shadow:0 22px 50px rgba(16,169,137,.24);z-index:5}.tag{font-size:18px;margin-top:14px;color:#d1fae5;font-weight:400}
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide" id="slide-1">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div>
+      <div class="pill">PROMPT ENGINEERING</div>
+      <h1 class="title">Kuasai Seni <strong>Prompt</strong> untuk Hasil <strong>AI Sempurna</strong></h1>
+      <p class="subtitle">Prompt yang baik = hasil yang baik. Pelajari cara menulis prompt yang menghasilkan output berkualitas tinggi dari AI.</p>
+      <div class="cover-list">
+        <div class="mini-point"><span class="check">✓</span><span>Pahami apa itu prompt yang baik</span></div>
+        <div class="mini-point"><span class="check">✓</span><span>Hindari kesalahan umum dalam menulis prompt</span></div>
+        <div class="mini-point"><span class="check">✓</span><span>Praktik langsung dengan contoh-contoh nyata</span></div>
+      </div>
+      <div class="ai-window">
+        <div class="ai-top"><div class="ai-logo">💬</div><span>ChatGPT</span><div class="window-dot"><span></span><span></span><span></span></div></div>
+        <div class="ai-tabs"><b>Chat</b><span>Prompt</span><span>Result</span><span>Tips</span><span>History</span></div>
+        <div class="prompt-box">
+          <div class="prompt-label">Prompt Input</div>
+          <div class="prompt-text">"Tulis artikel 800 kata tentang produktivitas untuk audience startup, gunakan data real, format untuk LinkedIn, dan 5 actionable tips."</div>
+          <div style="margin-top:16px;border-top:1px solid #a7f3d0;padding-top:12px">
+            <div class="prompt-label">Hasil Output</div>
+            <div class="prompt-text" style="color:#10a981">✓ Berkualitas tinggi<br>✓ Sesuai format<br>✓ Siap publish</div>
+          </div>
+        </div>
+      </div>
+      <div class="cta">Swipe untuk belajar →</div>
+      <div class="footer"><p>solusi.by.aldoferdii</p><p>solusi.by.aldoferdii@gmail.com</p><p>aldoferdii-solusi.web.app</p><p class="small">© AldoFerdii Solusi 2026</p></div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">02 / 07</div><div class="pill">APA ITU PROMPT?</div>
+      <h2 class="content-title">Prompt adalah <span class="green">instruksi untuk AI</span></h2>
+      <p class="lead">Semakin detail instruksi Anda, semakin baik AI memahami apa yang Anda inginkan. Prompt adalah bahasa komunikasi dengan AI.</p>
+      <div class="main-card">
+        <h3>Contoh Prompt Dalam Kehidupan Sehari-hari</h3>
+        <div class="two-col">
+          <div class="step"><span class="num">📝</span><div><b>Menulis Email</b><span>Prompt: "Buat email follow-up untuk client, formal tapi friendly, 100 kata"</span></div></div>
+          <div class="step"><span class="num">💼</span><div><b>Buat Business Plan</b><span>Prompt: "Outline business plan untuk startup SaaS, target market tech startups"</span></div></div>
+          <div class="step"><span class="num">🎨</span><div><b>Brainstorm Ide</b><span>Prompt: "Generate 10 ide konten untuk social media beauty products"</span></div></div>
+          <div class="step"><span class="num">📊</span><div><b>Analisis Data</b><span>Prompt: "Ringkas file CSV ini dan berikan insights utama"</span></div></div>
+        </div>
+      </div>
+      <p class="quote">Ingat: <strong>AI adalah assistant yang pintar, tapi perlu instruksi yang jelas</strong>.</p>
+      <div class="mini-ai"><div class="top">Formula Dasar Prompt</div><div class="tabs"><span>Context</span><span>Task</span><span>Format</span></div><div class="sheet">
+        <b style="color:var(--ai)">1. CONTEXT:</b> Siapa AI? Apa situasinya?<br><br>
+        <b style="color:var(--ai)">2. TASK:</b> Apa yang harus AI lakukan?<br><br>
+        <b style="color:var(--ai)">3. FORMAT:</b> Seperti apa output yang diinginkan?
+      </div></div>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span class="active"></span><span></span><span></span><span></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">03 / 07</div><div class="pill">KESALAHAN UMUM</div>
+      <h2 class="content-title">Kesalahan Prompt yang <span class="green">Sering Dilakukan</span></h2>
+      <p class="lead">Tahu apa yang salah, maka Anda bisa menghindarinya dan langsung menulis prompt yang benar.</p>
+      <div class="main-card narrow">
+        <h3>5 Kesalahan Umum</h3>
+        <div class="step-list">
+          <div class="step compact"><span class="num">1</span><div><b>Terlalu vague / umum</b><span>"Buatkan artikel" - Terlalu general, hasil jadi generic dan tidak sesuai</span></div></div>
+          <div class="step compact"><span class="num">2</span><div><b>Kurang konteks</b><span>Tidak menjelaskan audience, tujuan, atau background situasi</span></div></div>
+          <div class="step compact"><span class="num">3</span><div><b>Tidak spesifik format</b><span>Tidak bilang berapa kata, format (bullet/paragraph), tone, atau style</span></div></div>
+          <div class="step compact"><span class="num">4</span><div><b>Instruksi membingungkan</b><span>Satu prompt tanya banyak hal sekaligus tanpa prioritas</span></div></div>
+          <div class="step compact"><span class="num">5</span><div><b>Tidak iterasi</b><span>Menerima hasil pertama, padahal bisa refined lebih baik dengan follow-up</span></div></div>
+        </div>
+      </div>
+      <div class="avoid"><div class="avoid-card"><b>❌ Kesalahan:</b><p>"Bantu saya bikin ini"</p></div><div class="avoid-card"><b>✅ Benar:</b><p>"Bantu apa? Untuk siapa? Format gimana? Ada deadline?"</p></div></div>
+      <p class="quote"><strong>Detil = Kualitas.</strong> Makin spesifik, makin bagus hasil AI.</p>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span class="active"></span><span></span><span></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">04 / 07</div><div class="pill">STRUKTUR SEMPURNA</div>
+      <h2 class="content-title">Formula Prompt <span class="green">yang Selalu Berhasil</span></h2>
+      <p class="lead">Gunakan template ini untuk setiap prompt. Hasilnya akan konsisten berkualitas tinggi.</p>
+      <div class="main-card narrow">
+        <h3>Template Prompt Sempurna</h3>
+        <div class="step-list">
+          <div class="step compact"><span class="num">🎯</span><div><b>ROLE</b><span>"Kamu adalah [expert/role]. Kamu punya pengalaman [relevant]"</span></div></div>
+          <div class="step compact"><span class="num">📋</span><div><b>CONTEXT</b><span>"Background: [situation]. Goal: [tujuan]. Audience: [siapa]"</span></div></div>
+          <div class="step compact"><span class="num">✅</span><div><b>TASK</b><span>"Buatkan/Analisis/Jelaskan [apa yang spesifik]"</span></div></div>
+          <div class="step compact"><span class="num">📐</span><div><b>FORMAT</b><span>"Format: [bullet/paragraph/table]. Panjang: [jumlah]. Tone: [casual/formal]"</span></div></div>
+        </div>
+      </div>
+      <div class="mini-ai"><div class="top">Contoh Template Real</div><div class="tabs"><span>Before</span><span>After</span><span>Result</span></div><div class="sheet" style="font-size:11px;line-height:1.4;">
+        <b style="color:#dc2626">❌ BEFORE:</b><br>
+        "Buatkan artikel soal productivity"<br><br>
+        <b style="color:#10a981">✅ AFTER:</b><br>
+        "Kamu expert produktivitas untuk startup. Buatkan artikel 800 kata untuk founder startup tech tentang time management, gunakan 3 case study real, format untuk Medium, tone: practical &amp; actionable, dengan 5 tips implementasi."
+      </div></div>
+      <p class="quote"><strong>Investasi 1-2 menit menulis prompt detail</strong> = <strong>menghemat 30 menit editing hasil</strong>.</p>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span class="active"></span><span></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">05 / 07</div><div class="pill">TEKNIK ADVANCED</div>
+      <h2 class="content-title">Teknik Prompt <span class="green">untuk Hasil Maksimal</span></h2>
+      <p class="lead">Setelah master dasar, gunakan teknik-teknik ini untuk mendapatkan hasil yang bahkan lebih baik.</p>
+      <div class="main-card narrow">
+        <h3>5 Teknik Advanced Prompt</h3>
+        <div class="step-list">
+          <div class="step compact"><span class="num">1</span><div><b>Chain of Thought</b><span>"Jelaskan step-by-step reasoning Anda" - AI lebih akurat dalam logic</span></div></div>
+          <div class="step compact"><span class="num">2</span><div><b>Few-Shot Prompting</b><span>Kasih contoh input-output yang diinginkan untuk template</span></div></div>
+          <div class="step compact"><span class="num">3</span><div><b>Role Play</b><span>"Berperan sebagai [role spesifik]" - Output lebih contextual</span></div></div>
+          <div class="step compact"><span class="num">4</span><div><b>Constraints</b><span>Batasi: "Tidak boleh lebih dari 5 poin", "Hindari jargon teknis"</span></div></div>
+          <div class="step compact"><span class="num">5</span><div><b>Iterative Refinement</b><span>Follow-up dengan: "Lebih detail", "Nada lebih casual", "Tambah contoh"</span></div></div>
+        </div>
+      </div>
+      <div class="screen-pill">Semakin sering practice, semakin natural prompt Anda</div>
+      <p class="quote">Pro tip: <strong>Save prompt templates yang berhasil</strong> untuk reuse di masa depan.</p>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span></span><span class="active"></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">06 / 07</div><div class="pill">CONTOH PRAKTIS</div>
+      <h2 class="content-title">Contoh Nyata: <span class="green">Prompt Buruk vs Baik</span></h2>
+      <p class="lead">Lihat perbedaan langsung antara prompt asal dan prompt yang optimal.</p>
+      <div class="main-card" style="top:480px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div style="background:#fee2e2;border:1px solid #fca5a5;padding:20px;border-radius:16px">
+            <h3 style="color:#dc2626;font-size:18px;margin:0 0 12px">❌ Prompt Buruk</h3>
+            <p style="font-size:13px;line-height:1.5;color:#102033;margin:0">"Buatkan social media captions untuk produk skincare baru kita"</p>
+            <div style="margin-top:12px;padding-top:12px;border-top:1px solid #fca5a5;font-size:12px;color:#7c2d12">
+              <b>Hasil:</b> Generic, tidak branded, tidak sesuai tone
+            </div>
+          </div>
+          <div style="background:#dcfce7;border:1px solid #86efac;padding:20px;border-radius:16px">
+            <h3 style="color:#10a981;font-size:18px;margin:0 0 12px">✅ Prompt Baik</h3>
+            <p style="font-size:13px;line-height:1.5;color:#102033;margin:0">"Buatkan 5 caption Instagram untuk produk skincare premium kami. Target: millennial women 25-35 yang peduli sustainability. Tone: relatable tapi aspirational. Include: product benefit, sustainability message, call-to-action. Maksimal 150 karakter per caption."</p>
+            <div style="margin-top:12px;padding-top:12px;border-top:1px solid #86efac;font-size:12px;color:#15803d">
+              <b>Hasil:</b> Spesifik, branded, ready to post
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span></span><span></span><span class="active"></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-7">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">07 / 07</div><div class="pill">MULAI PRACTICE</div>
+      <h2 class="content-title">Saatnya Praktik: <span class="green">Kuasai Prompt</span></h2>
+      <p class="lead">Teori saja tidak cukup. Langsung praktik sekarang dan lihat hasilnya sendiri.</p>
+      <div class="final-panel"><h2>Roadmap Belajar Prompt</h2><p>Ikuti tahap ini untuk master prompt engineering dalam waktu singkat.</p><div class="toc-lines"><div class="toc-row">Hari 1-2 <span></span> Pahami template dasar & practice 10 prompt</div><div class="toc-row">Hari 3-4 <span></span> Hindari kesalahan umum & refine hasil</div><div class="toc-row">Hari 5-6 <span></span> Coba teknik advanced (chain of thought, role-play)</div><div class="toc-row">Hari 7+ <span></span> Build personal prompt library & sharing</div></div></div>
+      <div class="final-cta">Prompt yang baik mengubah segalanya. Mulai dari sekarang: buka ChatGPT, ikuti template, dan tulis prompt pertama Anda dengan benar.<div class="tag">Follow untuk prompt templates & tips updates setiap minggu.</div></div>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span></span><span></span><span></span><span class="active"></span></div></div>
+    </section>
+  </main>
+</body>
+</html>

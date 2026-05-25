@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AldoFerdii.Solusi - Carousel Templates</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInDown 0.6s ease;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      color: #07162d;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .header h1 .blue {
+      color: #185abd;
+    }
+
+    .header h1 .green {
+      color: #217346;
+    }
+
+    .header p {
+      font-size: 18px;
+      color: #5a6b7f;
+      font-weight: 400;
+    }
+
+    .btn-header {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(90deg, #185abd, #2b78d6);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 10px 30px rgba(24, 90, 189, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-header:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(24, 90, 189, 0.4);
+    }
+
+    /* Cards Grid */
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .template-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .template-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .template-preview {
+      height: 300px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 64px;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .template-preview.word {
+      background: linear-gradient(135deg, #07162d 0%, #0b1d35 50%, #10294a 100%);
+    }
+
+    .template-preview.word::before {
+      content: "W";
+      font-size: 120px;
+      opacity: 0.3;
+      position: absolute;
+    }
+
+    .template-preview.excel {
+      background: linear-gradient(135deg, #1a5c3a 0%, #217346 50%, #2a8c56 100%);
+    }
+
+    .template-preview.excel::before {
+      content: "E";
+      font-size: 120px;
+      opacity: 0.3;
+      position: absolute;
+    }
+
+    .template-info {
+      padding: 30px;
+    }
+
+    .template-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #07162d;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .template-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-word {
+      background: #eaf2ff;
+      color: #185abd;
+    }
+
+    .badge-excel {
+      background: #dff2e8;
+      color: #217346;
+    }
+
+    .template-desc {
+      color: #5a6b7f;
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    .template-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 20px 0;
+      padding: 15px 0;
+      border-top: 1px solid #e0e8f0;
+      border-bottom: 1px solid #e0e8f0;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: #07162d;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #8a96a8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 5px;
+    }
+
+    .template-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: #185abd;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1444a0;
+      transform: scale(1.02);
+    }
+
+    .btn-primary-green {
+      background: #217346;
+      color: white;
+    }
+
+    .btn-primary-green:hover {
+      background: #1a5c3a;
+      transform: scale(1.02);
+    }
+
+    .btn-secondary {
+      background: #e8eef6;
+      color: #185abd;
+      border: 2px solid #185abd;
+    }
+
+    .btn-secondary:hover {
+      background: #d0dce8;
+    }
+
+    .btn-secondary-green {
+      background: #e8eef6;
+      color: #217346;
+      border: 2px solid #217346;
+    }
+
+    .btn-secondary-green:hover {
+      background: #d0dce8;
+    }
+
+    /* Features */
+    .features {
+      background: white;
+      border-radius: 24px;
+      padding: 50px;
+      margin-bottom: 50px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .features h2 {
+      font-size: 36px;
+      color: #07162d;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-item {
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: #f0f4fa;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin: 0 auto 15px;
+    }
+
+    .feature-item h3 {
+      font-size: 18px;
+      color: #07162d;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .feature-item p {
+      color: #5a6b7f;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Usage */
+    .usage {
+      background: linear-gradient(135deg, #07162d 0%, #0b1d35 100%);
+      border-radius: 24px;
+      padding: 40px;
+      color: white;
+      animation: fadeInUp 1s ease;
+    }
+
+    .usage h2 {
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+
+    .command-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .command-box .label {
+      display: block;
+      font-size: 12px;
+      opacity: 0.7;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .command-box .code {
+      color: #7cda6d;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #5a6b7f;
+      font-size: 14px;
+    }
+
+    .footer p {
+      margin-bottom: 10px;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 36px;
+      }
+
+      .features {
+        padding: 30px;
+      }
+
+      .usage {
+        padding: 30px;
+      }
+
+      .templates-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Aldo<span class="blue">Ferdii</span><span class="green">.Solusi</span></h1>
+      <p>Template Carousel Profesional untuk Edukasi</p>
+      <div style="margin-top: 30px;">
+        <a href="builder-advanced.html" class="btn-header">🎨 Buka Template Builder</a>
+      </div>
+    </div>
+
+    <!-- Templates Grid -->
+    <div class="templates-grid">
+      <!-- Word Template -->
+      <div class="template-card">
+        <div class="template-preview word"></div>
+        <div class="template-info">
+          <div class="template-title">
+            <span class="template-badge badge-word">WORD</span>
+            Heading di Microsoft Word
+          </div>
+          <p class="template-desc">Template carousel untuk tutorial membuat heading yang rapi di Microsoft Word dengan styling profesional.</p>
+          
+          <div class="template-stats">
+            <div class="stat">
+              <div class="stat-value">5</div>
+              <div class="stat-label">Slides</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">1080x1350</div>
+              <div class="stat-label">Resolusi</div>
+            </div>
+          </div>
+
+          <div class="template-actions">
+            <button class="btn btn-primary" onclick="copyCommand('aldoferdii_carousel_template_poppins.html')">Export</button>
+            <button class="btn btn-secondary" onclick="viewTemplate('aldoferdii_carousel_template_poppins.html')">Preview</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Excel Template -->
+      <div class="template-card">
+        <div class="template-preview excel"></div>
+        <div class="template-info">
+          <div class="template-title">
+            <span class="template-badge badge-excel">EXCEL</span>
+            Formula di Microsoft Excel
+          </div>
+          <p class="template-desc">Template carousel untuk tutorial menggunakan formula dan function di Microsoft Excel dengan contoh nyata.</p>
+          
+          <div class="template-stats">
+            <div class="stat">
+              <div class="stat-value">5</div>
+              <div class="stat-label">Slides</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">1080x1350</div>
+              <div class="stat-label">Resolusi</div>
+            </div>
+          </div>
+
+          <div class="template-actions">
+            <button class="btn btn-primary-green" onclick="copyCommand('aldoferdii_carousel_excel.html')">Export</button>
+            <button class="btn btn-secondary-green" onclick="viewTemplate('aldoferdii_carousel_excel.html')">Preview</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <h2>Fitur Template</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">🎨</div>
+          <h3>Design Profesional</h3>
+          <p>Template dirancang dengan design modern dan warna yang sesuai dengan tema Microsoft Office.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <h3>Export Otomatis</h3>
+          <p>Export ke PNG otomatis dengan resolusi 1080x1350 menggunakan Playwright + Chrome.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✏️</div>
+          <h3>Mudah Dikustomisasi</h3>
+          <p>Edit HTML langsung untuk menyesuaikan konten sesuai kebutuhan tutorial Anda.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <h3>Responsive Design</h3>
+          <p>Template responsif dan terlihat bagus di berbagai ukuran layar.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎬</div>
+          <h3>5 Slides per Template</h3>
+          <p>Setiap template memiliki 5 slide yang cukup untuk tutorial lengkap.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🚀</div>
+          <h3>Siap Digunakan</h3>
+          <p>Langsung bisa digunakan tanpa setup rumit, hanya perlu Node.js.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usage -->
+    <div class="usage">
+      <h2>Cara Menggunakan</h2>
+      
+      <div class="command-box">
+        <span class="label">1. Install Dependencies</span>
+        <span class="code">npm install</span>
+      </div>
+
+      <div class="command-box">
+        <span class="label">2. Export Template Word (Default)</span>
+        <span class="code">node export.js</span>
+      </div>
+
+      <div class="command-box">
+        <span class="label">3. Export Template Excel</span>
+        <span class="code">node export.js aldoferdii_carousel_excel.html</span>
+      </div>
+
+      <div class="command-box">
+        <span class="label">4. Custom Template</span>
+        <span class="code">node export.js nama-template-kamu.html</span>
+      </div>
+
+      <p style="margin-top: 30px; opacity: 0.8;">Output akan menghasilkan file PNG: slide-1.png, slide-2.png, dst...</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>📧 solusi.by.aldoferdii@gmail.com</p>
+      <p>🌐 aldoferdii-solusi.web.app</p>
+      <p style="margin-top: 20px; opacity: 0.6;">© AldoFerdii Solusi 2026 • All Rights Reserved</p>
+    </div>
+  </div>
+
+  <script>
+    function copyCommand(filename) {
+      const command = `node export.js ${filename}`;
+      navigator.clipboard.writeText(command).then(() => {
+        alert(`✅ Command copied: ${command}`);
+      });
+    }
+
+    function viewTemplate(filename) {
+      // Open template in new tab
+      window.open(filename, '_blank');
+    }
+  </script>
+</body>
+</html>

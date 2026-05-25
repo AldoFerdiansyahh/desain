@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AldoFerdii.Solusi - Carousel Microsoft Excel</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root{
+      --navy:#07162d;
+      --navy-2:#0d2340;
+      --navy-3:#102b4e;
+      --excel:#217346;
+      --excel-2:#31a366;
+      --excel-soft:#dff2e8;
+      --paper:#ffffff;
+      --ink:#102033;
+      --muted:#6b7b93;
+      --line:#d8e0ec;
+      --soft:#f5f8fc;
+      --shadow:rgba(6,18,38,.18);
+    }
+
+    *{box-sizing:border-box;font-family:'Poppins',sans-serif!important}
+    body{margin:0;background:#dfe7f3;color:#fff}
+    .deck{display:flex;width:max-content;gap:0}
+    .slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:linear-gradient(135deg,var(--navy) 0%,#0b1d35 55%,#10294a 100%)}
+    .slide::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 9% 9%,rgba(43,120,214,.22),transparent 27%),radial-gradient(circle at 88% 14%,rgba(255,255,255,.08),transparent 22%);pointer-events:none}
+    .slide::after{content:"";position:absolute;right:-260px;bottom:-280px;width:680px;height:680px;border-radius:50%;background:rgba(43,120,214,.11);border:1px solid rgba(255,255,255,.08)}
+
+    .brand{position:absolute;left:72px;top:58px;font-weight:800;font-size:34px;letter-spacing:-1.2px;z-index:5}
+    .brand .blue{color:#4d9aff}.brand .gray{color:#93a4ba}
+    .slide-no{position:absolute;right:72px;top:64px;font-size:18px;font-weight:700;color:#c8dfc9;z-index:5}
+    .pill{position:absolute;left:72px;top:138px;display:inline-flex;align-items:center;gap:10px;padding:12px 24px;border-radius:999px;background:rgba(33,115,70,.95);box-shadow:0 14px 32px rgba(33,115,70,.25);font-size:16px;font-weight:700;letter-spacing:.2px;color:#fff;z-index:5}
+
+    .title{position:absolute;left:72px;top:215px;width:535px;margin:0;color:#fff;font-size:58px;line-height:1.16;font-weight:500;letter-spacing:-1.6px;z-index:5}
+    .title strong{font-weight:700;color:#7cda6d}
+    .subtitle{position:absolute;left:72px;top:600px;width:500px;color:#d8e5f6;font-size:24px;line-height:1.5;font-weight:400;z-index:5}
+
+    .cover-list{position:absolute;left:72px;top:755px;width:500px;z-index:5}
+    .mini-point{display:flex;gap:14px;align-items:flex-start;margin:20px 0;padding:18px 20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.065);border-radius:22px;backdrop-filter:blur(8px)}
+    .mini-point .check{width:28px;height:28px;min-width:28px;border-radius:50%;display:grid;place-items:center;background:var(--excel-2);font-weight:800;font-size:16px;margin-top:2px}
+    .mini-point span:last-child{font-size:21px;line-height:1.32;color:#edf5ff;font-weight:500}
+
+    .footer{position:absolute;left:72px;bottom:48px;color:#dce8f8;font-size:14px;line-height:1.55;z-index:5}
+    .footer p{margin:5px 0}.footer .small{margin-top:18px;color:#9fb2ca}
+    .cta{position:absolute;right:72px;bottom:54px;background:#fff;color:var(--excel);font-size:20px;font-weight:700;border-radius:999px;padding:13px 28px;box-shadow:0 18px 45px rgba(0,0,0,.2);z-index:5}
+
+    /* Microsoft Excel inspired visual */
+    .excel-window{position:absolute;right:62px;top:222px;width:410px;height:645px;background:#fff;color:var(--ink);border-radius:28px;box-shadow:22px 26px 0 rgba(255,255,255,.13),0 34px 70px rgba(0,0,0,.28);overflow:hidden;z-index:4;border:1px solid rgba(255,255,255,.65)}
+    .excel-top{height:44px;background:var(--excel);color:#fff;display:flex;align-items:center;padding:0 18px;gap:10px;font-size:13px;font-weight:600}
+    .e-logo{width:28px;height:28px;border-radius:7px;background:#1a5c3a;display:grid;place-items:center;font-weight:800;font-size:18px}
+    .window-dot{margin-left:auto;display:flex;gap:7px}.window-dot span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.75)}
+    .excel-tabs{height:34px;background:#f6f8fc;border-bottom:1px solid #dce3ef;display:flex;align-items:center;gap:15px;padding:0 18px;font-size:10px;color:#3b4e68;font-weight:600}
+    .excel-tabs b{color:var(--excel);border-bottom:3px solid var(--excel);height:34px;display:flex;align-items:center}
+    .ribbon-ui{height:84px;background:#fff;border-bottom:1px solid #dce3ef;padding:10px 16px;display:grid;grid-template-columns:1.1fr 1.3fr 1fr;gap:12px}
+    .ribbon-group{border-right:1px solid #e2e8f0;padding-right:10px}.ribbon-group:last-child{border-right:0}
+    .bar{height:9px;border-radius:999px;background:#d5dfec;margin:7px 0}.bar.green{background:var(--excel)}.bar.short{width:64%}.bar.mid{width:82%}
+    .sheet-grid{margin:23px auto 0;width:330px;height:430px;background:#fff;border:1px solid #dfe5ef;box-shadow:0 14px 36px rgba(16,32,51,.12);padding:16px}
+    .grid-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+    .cell{background:#f0f3f8;border:1px solid #d0d8e4;padding:12px 8px;text-align:center;font-size:11px;font-weight:600;color:#34465e;border-radius:4px}
+    .cell.header{background:var(--excel);color:#fff}
+    .cell.number{text-align:right;font-family:monospace}
+
+    .content-title{position:absolute;left:72px;top:200px;width:610px;margin:0;font-size:48px;line-height:1.22;font-weight:700;letter-spacing:-1.2px;z-index:5}.content-title .green{color:#7cda6d}
+    .lead{position:absolute;left:72px;top:350px;width:600px;font-size:22px;line-height:1.5;color:#dce8f7;font-weight:400;z-index:5}
+    .main-card{position:absolute;left:72px;right:72px;top:510px;background:#fff;color:var(--ink);border-radius:34px;padding:34px;box-shadow:0 22px 60px rgba(0,0,0,.22);z-index:5}
+    .main-card.narrow{right:auto;width:596px}.main-card h3{font-size:28px;line-height:1.2;margin:0 0 20px;font-weight:700;color:#102033}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}.step-list{display:grid;gap:15px}
+    .step{display:flex;gap:14px;align-items:flex-start;background:#f5f8ff;border:1px solid #dce8ff;padding:20px;border-radius:22px;min-height:132px}
+    .step.compact{min-height:auto;padding:16px 18px}.num{width:34px;height:34px;min-width:34px;border-radius:50%;background:var(--excel-2);display:grid;place-items:center;color:#fff;font-size:16px;font-weight:800}.step b{display:block;font-size:19px;line-height:1.25;color:#102033;font-weight:700}.step span:last-child{display:block;margin-top:4px;font-size:16px;line-height:1.35;color:#53657c;font-weight:400}
+    .quote{position:absolute;left:72px;bottom:166px;width:560px;font-size:22px;line-height:1.45;color:#e8f1ff;z-index:5}.quote strong{color:#7cda6d;font-weight:700}
+    .mini-footer{position:absolute;left:72px;right:72px;bottom:42px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#d5e2f3;z-index:5}.progress{display:flex;gap:8px}.progress span{width:42px;height:6px;border-radius:99px;background:#3a5f4a}.progress span.active{background:#7cda6d}
+
+    .mini-excel{position:absolute;right:72px;bottom:175px;width:330px;background:#fff;color:var(--ink);border-radius:28px;box-shadow:10px 10px 0 rgba(255,255,255,.15),0 24px 52px rgba(0,0,0,.22);overflow:hidden;z-index:5}.mini-excel .top{height:42px;background:var(--excel);color:#fff;display:flex;align-items:center;padding:0 16px;font-size:12px;font-weight:700}.mini-excel .tabs{height:36px;background:#f7f9fc;border-bottom:1px solid #e0e7f0;display:flex;align-items:center;gap:10px;padding:0 14px;font-size:9px;color:#5a6c82}.mini-excel .sheet{padding:16px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.mini-cell{background:#f0f3f8;border:1px solid #d0d8e4;padding:8px 4px;text-align:center;font-size:9px;font-weight:600;color:#34465e;border-radius:3px;min-height:32px;display:flex;align-items:center;justify-content:center}
+    .mini-cell.header{background:var(--excel);color:#fff}
+
+    .screen-pill{position:absolute;right:72px;top:200px;background:#fff;color:#102033;border-radius:999px;padding:12px 22px;font-size:16px;font-weight:700;box-shadow:0 18px 42px rgba(0,0,0,.18);z-index:5}.key{display:inline-block;border:1px solid #c9d6e7;border-radius:7px;padding:2px 8px;background:#fff;box-shadow:0 3px 0 #b9c4d2;font-weight:800;margin:0 2px}
+    .avoid{position:absolute;right:72px;top:205px;width:340px;z-index:5}.avoid-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:20px;margin-bottom:16px}.avoid-card b{display:block;font-size:20px;font-weight:700;color:#fff}.avoid-card p{font-size:17px;line-height:1.35;color:#d0dbea;margin:7px 0 0}
+    .final-panel{position:absolute;left:72px;right:72px;top:462px;background:#fff;color:var(--ink);border-radius:36px;padding:42px;box-shadow:0 26px 70px rgba(0,0,0,.25);z-index:5}.final-panel h2{font-size:38px;line-height:1.18;margin:0 0 18px;font-weight:700}.final-panel p{font-size:23px;line-height:1.45;color:#43546b}.toc-lines{margin-top:26px}.toc-row{display:flex;align-items:center;gap:14px;margin:14px 0;font-size:21px;font-weight:700;color:#102033}.toc-row::before{content:"";width:20px;height:20px;border-radius:6px;background:var(--excel)}.toc-row span{flex:1;border-bottom:3px dotted #b9c6d8;height:14px}.final-cta{position:absolute;left:72px;right:72px;bottom:150px;background:linear-gradient(90deg,var(--excel),var(--excel-2));border-radius:28px;padding:31px 34px;font-size:27px;line-height:1.35;font-weight:700;box-shadow:0 22px 50px rgba(33,115,70,.24);z-index:5}.tag{font-size:18px;margin-top:14px;color:#c8f0d6;font-weight:400}
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide" id="slide-1">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div>
+      <div class="pill">EDUKASI MICROSOFT EXCEL</div>
+      <h1 class="title">Cara Menggunakan <strong>Formula</strong> dan <strong>Function</strong> di <strong>Excel</strong></h1>
+      <p class="subtitle">Master formula Excel agar laporan dan analisis data kamu jadi lebih cepat dan akurat tanpa harus hitung manual.</p>
+      <div class="cover-list">
+        <div class="mini-point"><span class="check">✓</span><span>Hitung data otomatis dengan formula</span></div>
+        <div class="mini-point"><span class="check">✓</span><span>Kelola angka besar dengan mudah</span></div>
+        <div class="mini-point"><span class="check">✓</span><span>Hemat waktu untuk tugas berulang</span></div>
+      </div>
+      <div class="excel-window">
+        <div class="excel-top"><div class="e-logo">E</div><span>Book1 - Excel</span><div class="window-dot"><span></span><span></span><span></span></div></div>
+        <div class="excel-tabs"><b>Home</b><span>Insert</span><span>Page Layout</span><span>Formulas</span><span>Data</span></div>
+        <div class="ribbon-ui">
+          <div class="ribbon-group"><div class="bar green mid"></div><div class="bar short"></div><div class="bar"></div></div>
+          <div class="ribbon-group"><div class="bar"></div><div class="bar green short"></div><div class="bar mid"></div></div>
+          <div class="ribbon-group"><div class="bar green"></div><div class="bar mid"></div><div class="bar short"></div></div>
+        </div>
+        <div class="sheet-grid">
+          <div class="grid-row">
+            <div class="cell header">Produk</div>
+            <div class="cell header">Harga</div>
+            <div class="cell header">Qty</div>
+          </div>
+          <div class="grid-row">
+            <div class="cell">Laptop</div>
+            <div class="cell number">5000</div>
+            <div class="cell number">2</div>
+          </div>
+          <div class="grid-row">
+            <div class="cell">Mouse</div>
+            <div class="cell number">150</div>
+            <div class="cell number">5</div>
+          </div>
+          <div class="grid-row">
+            <div class="cell">Total</div>
+            <div class="cell number" style="background:var(--excel-soft);color:var(--excel);font-weight:700">10750</div>
+            <div class="cell"></div>
+          </div>
+        </div>
+      </div>
+      <div class="cta">Swipe untuk langkahnya →</div>
+      <div class="footer"><p>solusi.by.aldoferdii</p><p>solusi.by.aldoferdii@gmail.com</p><p>aldoferdii-solusi.web.app</p><p class="small">© AldoFerdii Solusi 2026</p></div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">02 / 05</div><div class="pill">KENAPA PENTING?</div>
+      <h2 class="content-title">Formula Excel menghemat <span class="blue">waktu dan biaya</span>.</h2>
+      <p class="lead">Bukan hanya mengetik angka, formula membuat data tetap update otomatis saat nilai berubah.</p>
+      <div class="main-card">
+        <h3>Manfaat memakai Formula</h3>
+        <div class="two-col">
+          <div class="step"><span class="num">✓</span><div><b>Hitung otomatis</b><span>Tidak perlu kalkulator, hasil muncul langsung.</span></div></div>
+          <div class="step"><span class="num">✓</span><div><b>Update real-time</b><span>Ubah input, hasil formula ikut berubah.</span></div></div>
+          <div class="step"><span class="num">✓</span><div><b>Analisis data besar</b><span>Analisis ribuan baris data dengan cepat.</span></div></div>
+          <div class="step"><span class="num">✓</span><div><b>Laporan profesional</b><span>Cocok untuk laporan keuangan dan business.</span></div></div>
+        </div>
+      </div>
+      <p class="quote">Intinya: <strong>jangan hitung manual, biarkan Excel bekerja untuk kamu</strong>.</p>
+      <div class="mini-excel"><div class="top">Microsoft Excel</div><div class="tabs"><span>Formula</span><span>Function</span><span>Calculate</span></div><div class="sheet"><div class="mini-grid">
+        <div class="mini-cell header">A</div><div class="mini-cell header">B</div><div class="mini-cell header">C</div>
+        <div class="mini-cell">100</div><div class="mini-cell">200</div><div class="mini-cell">=A+B</div>
+        <div class="mini-cell">300</div><div class="mini-cell">400</div><div class="mini-cell">=A+B</div>
+      </div></div></div>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span class="active"></span><span></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">03 / 05</div><div class="pill">LANGKAH 1</div>
+      <h2 class="content-title">Gunakan <span class="blue">Formula Dasar</span> di Excel.</h2>
+      <p class="lead">Mulai dari penjumlahan, pengurangan, perkalian, dan pembagian. Semua dimulai dengan tanda sama dengan (=).</p>
+      <div class="main-card narrow">
+        <h3>Formula paling mudah</h3>
+        <div class="step-list">
+          <div class="step compact"><span class="num">1</span><div><b>Tambah: =A1+B1</b><span>Jumlahkan nilai A1 dan B1.</span></div></div>
+          <div class="step compact"><span class="num">2</span><div><b>Kurang: =A1-B1</b><span>Kurangkan B1 dari A1.</span></div></div>
+          <div class="step compact"><span class="num">3</span><div><b>Kali: =A1*B1</b><span>Kalikan nilai A1 dan B1.</span></div></div>
+          <div class="step compact"><span class="num">4</span><div><b>Bagi: =A1/B1</b><span>Bagi nilai A1 dengan B1.</span></div></div>
+        </div>
+      </div>
+      <div class="screen-pill">Shortcut: <span class="key">=</span> lalu ketik formula</div>
+      <div class="mini-excel" style="bottom:270px"><div class="top">Formula Bar</div><div class="tabs"><span>Input</span><span>Formula</span><span>Result</span></div><div class="sheet"><div class="mini-grid">
+        <div class="mini-cell header">=</div><div class="mini-cell">A1</div><div class="mini-cell">+B1</div>
+        <div class="mini-cell" style="grid-column:1/-1;background:var(--excel-soft);color:var(--excel);font-weight:700">Result: 300</div>
+      </div></div></div>
+      
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span class="active"></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">04 / 05</div><div class="pill">LANGKAH 2</div>
+      <h2 class="content-title">Gunakan <span class="blue">Function</span> untuk analisis lebih canggih.</h2>
+      <p class="lead">SUM, AVERAGE, COUNT, dan function lainnya membuat analisis data jadi lebih powerful dan cepat.</p>
+      <div class="main-card narrow">
+        <h3>Function paling sering dipakai</h3>
+        <div class="step-list">
+          <div class="step compact"><span class="num">1</span><div><b>SUM()</b><span>Menjumlah range data. =SUM(A1:A10)</span></div></div>
+          <div class="step compact"><span class="num">2</span><div><b>AVERAGE()</b><span>Hitung rata-rata. =AVERAGE(B1:B10)</span></div></div>
+          <div class="step compact"><span class="num">3</span><div><b>COUNT()</b><span>Hitung jumlah cell. =COUNT(C1:C10)</span></div></div>
+          <div class="step compact"><span class="num">4</span><div><b>IF()</b><span>Logika kondisi. =IF(A1>100,"Besar","Kecil")</span></div></div>
+        </div>
+      </div>
+      <div class="avoid"><div class="avoid-card"><b>Hindari cara manual</b><p>Hitung satu-satu bikin error dan membuang waktu.</p></div><div class="avoid-card"><b>Pakai function</b><p>Excel → Formulas → Function Library.</p></div></div>
+      
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span class="active"></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">05 / 05</div><div class="pill">LANGKAH 3</div>
+      <h2 class="content-title">Buat <span class="blue">Dashboard dan Chart</span>.</h2>
+      <p class="lead">Visualisasi data dengan chart membuat laporan jadi lebih mudah dipahami dan terlihat profesional.</p>
+      <div class="final-panel"><h2>Insert → Charts</h2><p>Pilih jenis chart yang sesuai data kamu. Bar, Line, Pie, atau Column chart semua bisa dibuat otomatis dari data.</p><div class="toc-lines"><div class="toc-row">Chart tipe Bar <span></span> Perbandingan</div><div class="toc-row">Chart tipe Line <span></span> Trend waktu</div><div class="toc-row">Chart tipe Pie <span></span> Persentase</div><div class="toc-row">Chart tipe Column <span></span> Kategori data</div></div></div>
+      <div class="final-cta">Kuasai formula Excel dan data kamu jadi lebih mudah dianalisis dan dibagikan.<div class="tag">Follow untuk tips Excel lainnya.</div></div>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span></span><span class="active"></span></div></div>
+    </section>
+  </main>
+</body>
+</html>

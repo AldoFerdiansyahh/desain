@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AldoFerdii.Solusi - Visual Studio Code Mastery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root{
+      --navy:#07162d;
+      --navy-2:#0d2340;
+      --navy-3:#102b4e;
+      --vscode:#0078d4;
+      --vscode-2:#1084d7;
+      --vscode-soft:#d4e4ff;
+      --paper:#ffffff;
+      --ink:#102033;
+      --muted:#6b7b93;
+      --line:#d8e0ec;
+      --soft:#f5f8fc;
+      --shadow:rgba(6,18,38,.18);
+    }
+
+    *{box-sizing:border-box;font-family:'Poppins',sans-serif!important}
+    body{margin:0;background:#dfe7f3;color:#fff}
+    .deck{display:flex;width:max-content;gap:0}
+    .slide{position:relative;width:1080px;height:1350px;overflow:hidden;background:linear-gradient(135deg,var(--navy) 0%,#0b1d35 55%,#10294a 100%)}
+    .slide::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 9% 9%,rgba(0,120,212,.22),transparent 27%),radial-gradient(circle at 88% 14%,rgba(255,255,255,.08),transparent 22%);pointer-events:none}
+    .slide::after{content:"";position:absolute;right:-260px;bottom:-280px;width:680px;height:680px;border-radius:50%;background:rgba(0,120,212,.11);border:1px solid rgba(255,255,255,.08)}
+
+    .brand{position:absolute;left:72px;top:58px;font-weight:800;font-size:34px;letter-spacing:-1.2px;z-index:5}
+    .brand .blue{color:#0078d4}.brand .gray{color:#93a4ba}
+    .slide-no{position:absolute;right:72px;top:64px;font-size:18px;font-weight:700;color:#9db1ca;z-index:5}
+    .pill{position:absolute;left:72px;top:138px;display:inline-flex;align-items:center;gap:10px;padding:12px 24px;border-radius:999px;background:rgba(0,120,212,.95);box-shadow:0 14px 32px rgba(0,120,212,.25);font-size:16px;font-weight:700;letter-spacing:.2px;color:#fff;z-index:5}
+
+    .title{position:absolute;left:72px;top:215px;width:535px;margin:0;color:#fff;font-size:58px;line-height:1.16;font-weight:500;letter-spacing:-1.6px;z-index:5}
+    .title strong{font-weight:700;color:#6db3f2}
+    .subtitle{position:absolute;left:72px;top:600px;width:500px;color:#d8e5f6;font-size:24px;line-height:1.5;font-weight:400;z-index:5}
+
+    .cover-list{position:absolute;left:72px;top:755px;width:500px;z-index:5}
+    .mini-point{display:flex;gap:14px;align-items:flex-start;margin:20px 0;padding:18px 20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.065);border-radius:22px;backdrop-filter:blur(8px)}
+    .mini-point .check{width:28px;height:28px;min-width:28px;border-radius:50%;display:grid;place-items:center;background:var(--vscode-2);font-weight:800;font-size:16px;margin-top:2px}
+    .mini-point span:last-child{font-size:21px;line-height:1.32;color:#edf5ff;font-weight:500}
+
+    .footer{position:absolute;left:72px;bottom:48px;color:#dce8f8;font-size:14px;line-height:1.55;z-index:5}
+    .footer p{margin:5px 0}.footer .small{margin-top:18px;color:#9fb2ca}
+    .cta{position:absolute;right:72px;bottom:54px;background:#fff;color:var(--vscode);font-size:20px;font-weight:700;border-radius:999px;padding:13px 28px;box-shadow:0 18px 45px rgba(0,0,0,.2);z-index:5}
+
+    .ai-window{position:absolute;right:62px;top:222px;width:410px;height:645px;background:#1e1e1e;color:#fff;border-radius:28px;box-shadow:22px 26px 0 rgba(255,255,255,.13),0 34px 70px rgba(0,0,0,.28);overflow:hidden;z-index:4;border:1px solid rgba(255,255,255,.65)}
+    .ai-top{height:44px;background:#3e3e42;color:#fff;display:flex;align-items:center;padding:0 18px;gap:10px;font-size:13px;font-weight:600}
+    .ai-logo{width:28px;height:28px;border-radius:0;background:var(--vscode);display:grid;place-items:center;font-weight:800;font-size:18px}
+    .window-dot{margin-left:auto;display:flex;gap:7px}.window-dot span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5)}
+    .ai-tabs{height:34px;background:#2d2d30;border-bottom:1px solid #3e3e42;display:flex;align-items:center;gap:15px;padding:0 18px;font-size:10px;color:#858585;font-weight:600}
+    .ai-tabs b{color:#fff;border-bottom:3px solid var(--vscode);height:34px;display:flex;align-items:center}
+    .code-editor{margin:20px auto;width:330px;height:430px;background:#1e1e1e;border:1px solid #3e3e42;font-family:monospace;padding:16px;overflow:hidden;border-radius:4px;position:relative}
+    .code-line{font-size:11px;line-height:1.6;color:#d4d4d4;margin:4px 0}
+    .code-keyword{color:#569cd6}
+    .code-string{color:#ce9178}
+    .code-function{color:#dcdcaa}
+
+    .content-title{position:absolute;left:72px;top:200px;width:610px;margin:0;font-size:48px;line-height:1.22;font-weight:700;letter-spacing:-1.2px;z-index:5}.content-title .blue{color:#6db3f2}
+    .lead{position:absolute;left:72px;top:350px;width:600px;font-size:22px;line-height:1.5;color:#dce8f7;font-weight:400;z-index:5}
+    .main-card{position:absolute;left:72px;right:72px;top:510px;background:#fff;color:var(--ink);border-radius:34px;padding:34px;box-shadow:0 22px 60px rgba(0,0,0,.22);z-index:5}
+    .main-card.narrow{right:auto;width:596px}.main-card h3{font-size:28px;line-height:1.2;margin:0 0 20px;font-weight:700;color:#102033}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}.step-list{display:grid;gap:15px}
+    .step{display:flex;gap:14px;align-items:flex-start;background:#f0f6ff;border:1px solid #d4e4ff;padding:20px;border-radius:22px;min-height:132px}
+    .step.compact{min-height:auto;padding:16px 18px}.num{width:34px;height:34px;min-width:34px;border-radius:50%;background:var(--vscode-2);display:grid;place-items:center;color:#fff;font-size:16px;font-weight:800}.step b{display:block;font-size:19px;line-height:1.25;color:#102033;font-weight:700}.step span:last-child{display:block;margin-top:4px;font-size:16px;line-height:1.35;color:#53657c;font-weight:400}
+    .quote{position:absolute;left:72px;bottom:166px;width:560px;font-size:22px;line-height:1.45;color:#e8f1ff;z-index:5}.quote strong{color:#6db3f2;font-weight:700}
+    .mini-footer{position:absolute;left:72px;right:72px;bottom:42px;display:flex;align-items:center;justify-content:space-between;font-size:15px;color:#d5e2f3;z-index:5}.progress{display:flex;gap:8px}.progress span{width:42px;height:6px;border-radius:99px;background:#274d79}.progress span.active{background:#1084d7}
+
+    .mini-ai{position:absolute;right:72px;bottom:175px;width:330px;background:#fff;color:var(--ink);border-radius:28px;box-shadow:10px 10px 0 rgba(255,255,255,.15),0 24px 52px rgba(0,0,0,.22);overflow:hidden;z-index:5}.mini-ai .top{height:42px;background:var(--vscode);color:#fff;display:flex;align-items:center;padding:0 16px;font-size:12px;font-weight:700}.mini-ai .tabs{height:36px;background:#f7f9fc;border-bottom:1px solid #e0e7f0;display:flex;align-items:center;gap:10px;padding:0 14px;font-size:9px;color:#5a6c82}.mini-ai .sheet{padding:16px;font-size:12px;line-height:1.5;color:#102033}
+
+    .avoid{position:absolute;right:72px;top:205px;width:340px;z-index:5}.avoid-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:20px;margin-bottom:16px}.avoid-card b{display:block;font-size:20px;font-weight:700;color:#fff}.avoid-card p{font-size:15px;line-height:1.35;color:#d0dbea;margin:7px 0 0}
+    .final-panel{position:absolute;left:72px;right:72px;top:462px;background:#fff;color:var(--ink);border-radius:36px;padding:42px;box-shadow:0 26px 70px rgba(0,0,0,.25);z-index:5}.final-panel h2{font-size:38px;line-height:1.18;margin:0 0 18px;font-weight:700}.final-panel p{font-size:23px;line-height:1.45;color:#43546b}.toc-lines{margin-top:26px}.toc-row{display:flex;align-items:center;gap:14px;margin:14px 0;font-size:21px;font-weight:700;color:#102033}.toc-row::before{content:"";width:20px;height:20px;border-radius:6px;background:var(--vscode-2)}.toc-row span{flex:1;border-bottom:3px dotted #b9c6d8;height:14px}.final-cta{position:absolute;left:72px;right:72px;bottom:150px;background:linear-gradient(90deg,var(--vscode),var(--vscode-2));border-radius:28px;padding:31px 34px;font-size:27px;line-height:1.35;font-weight:700;box-shadow:0 22px 50px rgba(0,120,212,.24);z-index:5}.tag{font-size:18px;margin-top:14px;color:#d4e4ff;font-weight:400}
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide" id="slide-1">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div>
+      <div class="pill">VISUAL STUDIO CODE</div>
+      <h1 class="title">Kuasai <strong>VS Code</strong> Editor Terbaik untuk <strong>Coding</strong></h1>
+      <p class="subtitle">Visual Studio Code bukan hanya editor biasa. Ini adalah tools yang akan mengubah cara Anda menulis code dan meningkatkan produktivitas.</p>
+      <div class="cover-list">
+        <div class="mini-point"><span class="check">✓</span><span>Pahami interface VS Code dengan jelas</span></div>
+        <div class="mini-point"><span class="check">✓</span><span>Belajar shortcut & fitur-fitur powerful</span></div>
+        <div class="mini-point"><span class="check">✓</span><span>Setup VS Code untuk coding efisien</span></div>
+      </div>
+      <div class="ai-window">
+        <div class="ai-top"><div class="ai-logo">⟩</div><span>VS Code</span><div class="window-dot"><span></span><span></span><span></span></div></div>
+        <div class="ai-tabs"><b>File</b><span>Edit</span><span>View</span><span>Debug</span><span>Terminal</span></div>
+        <div class="code-editor">
+          <div class="code-line"><span class="code-keyword">function</span> <span class="code-function">helloWorld</span>() {</div>
+          <div class="code-line">  <span class="code-keyword">console</span>.log(<span class="code-string">"Hello World!"</span>)</div>
+          <div class="code-line">}</div>
+          <div style="margin-top:12px;color:#858585">
+            <div class="code-line">// Output: Hello World!</div>
+          </div>
+        </div>
+      </div>
+      <div class="cta">Swipe untuk belajar →</div>
+      <div class="footer"><p>solusi.by.aldoferdii</p><p>solusi.by.aldoferdii@gmail.com</p><p>aldoferdii-solusi.web.app</p><p class="small">© AldoFerdii Solusi 2026</p></div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">02 / 07</div><div class="pill">APA ITU VS CODE?</div>
+      <h2 class="content-title">VS Code: <span class="blue">Editor Code Modern</span></h2>
+      <p class="lead">Visual Studio Code adalah aplikasi untuk menulis code yang dibuat Microsoft. Ringan, powerful, dan digunakan jutaan developer di dunia.</p>
+      <div class="main-card">
+        <h3>Kenapa VS Code Populer?</h3>
+        <div class="two-col">
+          <div class="step"><span class="num">⚡</span><div><b>Cepat & Ringan</b><span>Loading instan, tidak lag bahkan di PC pas-pasan</span></div></div>
+          <div class="step"><span class="num">🎨</span><div><b>Customizable</b><span>Tema, font, layout bisa diatur sesuai preferensi Anda</span></div></div>
+          <div class="step"><span class="num">📦</span><div><b>Extensions</b><span>10,000+ extension untuk berbagai kebutuhan coding</span></div></div>
+          <div class="step"><span class="num">🔧</span><div><b>Built-in Tools</b><span>Terminal, debugger, git, dan banyak tools lainnya</span></div></div>
+        </div>
+      </div>
+      <p class="quote">Ingat: <strong>VS Code gratis dan open source!</strong> Unduh dari code.visualstudio.com</p>
+      <div class="mini-ai"><div class="top">VS Code Stats</div><div class="tabs"><span>2024</span><span>Popular</span><span>Favorite</span></div><div class="sheet">
+        <b style="color:var(--vscode)">📊 Ranking:</b><br>
+        #1 Code Editor di dunia<br><br>
+        <b style="color:var(--vscode)">👥 Users:</b><br>
+        15+ juta developer aktif
+      </div></div>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span class="active"></span><span></span><span></span><span></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">03 / 07</div><div class="pill">INTERFACE DASAR</div>
+      <h2 class="content-title">Pahami Layout <span class="blue">VS Code</span></h2>
+     
+      <div class="main-card" style="top:380px;padding:28px">
+        <h3 style="font-size:24px;margin-bottom:16px">5 Area Utama VS Code</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="step compact" style="padding:14px;min-height:auto"><span class="num" style="width:28px;height:28px;font-size:13px">1</span><div><b style="font-size:15px">Activity Bar</b><span style="font-size:13px">Menu sidebar kiri (File, Search, etc)</span></div></div>
+          <div class="step compact" style="padding:14px;min-height:auto"><span class="num" style="width:28px;height:28px;font-size:13px">2</span><div><b style="font-size:15px">Explorer</b><span style="font-size:13px">Lihat file & folder project Anda</span></div></div>
+          <div class="step compact" style="padding:14px;min-height:auto"><span class="num" style="width:28px;height:28px;font-size:13px">3</span><div><b style="font-size:15px">Editor</b><span style="font-size:13px">Area tengah untuk menulis code</span></div></div>
+          <div class="step compact" style="padding:14px;min-height:auto"><span class="num" style="width:28px;height:28px;font-size:13px">4</span><div><b style="font-size:15px">Terminal</b><span style="font-size:13px">Bawah untuk jalankan command</span></div></div>
+          <div class="step compact" style="padding:14px;min-height:auto;grid-column:1/-1"><span class="num" style="width:28px;height:28px;font-size:13px">5</span><div><b style="font-size:15px">Status Bar</b><span style="font-size:13px">Bawah untuk info file (line, encoding, dsb)</span></div></div>
+        </div>
+      </div>
+      <div style="position:absolute;left:72px;right:72px;bottom:120px;display:grid;grid-template-columns:1fr 1fr;gap:16px;z-index:5">
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:14px">
+          <b style="display:block;font-size:14px;font-weight:700;color:#fff;margin-bottom:6px">📍 Lokasi:</b>
+          <p style="font-size:12px;line-height:1.4;color:#d0dbea;margin:0">Setiap bagian punya fungsi spesifik</p>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:14px">
+          <b style="display:block;font-size:14px;font-weight:700;color:#0078d4;margin-bottom:6px">💡 Tips:</b>
+          <p style="font-size:12px;line-height:1.4;color:#6db3f2;margin:0">Customize sesuai workflow Anda</p>
+        </div>
+      </div>
+      <p class="quote" style="bottom:165px;width:600px;font-size:18px;line-height:1.4">
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span class="active"></span><span></span><span></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">04 / 07</div><div class="pill">SHORTCUTS PENTING</div>
+      <h2 class="content-title">Shortcut Keyboard <span class="blue">yang Menghemat Waktu</span></h2>
+      <p class="lead">Kuasai shortcut ini dan coding Anda akan jauh lebih cepat dan efisien.</p>
+      <div class="main-card narrow">
+        <h3>Top 10 Shortcut VS Code</h3>
+        <div class="step-list">
+          <div class="step compact"><span class="num">1</span><div><b>Ctrl+S</b><span>Save file - simpan code Anda</span></div></div>
+          <div class="step compact"><span class="num">2</span><div><b>Ctrl+/</b><span>Comment - tambah/hapus comment</span></div></div>
+          <div class="step compact"><span class="num">3</span><div><b>Ctrl+D</b><span>Multi-select - edit multiple sama waktu</span></div></div>
+          <div class="step compact"><span class="num">4</span><div><b>Ctrl+H</b><span>Find & Replace - cari dan ganti</span></div></div>
+          <div class="step compact"><span class="num">5</span><div><b>Ctrl+Shift+P</b><span>Command Palette - akses semua command</span></div></div>
+          <div class="step compact"><span class="num">6</span><div><b>Ctrl+`</b><span>Terminal - buka/tutup terminal</span></div></div>
+        </div>
+      </div>
+      <div class="screen-pill">Lebih banyak shortcut = lebih cepat coding</div>
+      <p class="quote" style="top:920px;width:600px">
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span class="active"></span><span></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">05 / 07</div><div class="pill">EXTENSIONS WAJIB</div>
+      <h2 class="content-title">Extension yang <span class="blue">Harus Dipasang</span></h2>
+      <p class="lead">Extension membuat VS Code lebih powerful. Ini adalah rekomendasi extension populer untuk berbagai kebutuhan.</p>
+      <div class="main-card narrow">
+        <h3>5 Extension Must-Have</h3>
+        <div class="step-list">
+          <div class="step compact"><span class="num">1</span><div><b>Prettier</b><span>Auto-format code agar lebih rapi dan konsisten</span></div></div>
+          <div class="step compact"><span class="num">2</span><div><b>Live Server</b><span>Real-time preview HTML/CSS di browser</span></div></div>
+          <div class="step compact"><span class="num">3</span><div><b>Thunder Client</b><span>Test API langsung dari VS Code</span></div></div>
+          <div class="step compact"><span class="num">4</span><div><b>GitLens</b><span>Lihat git history & blame dengan mudah</span></div></div>
+          <div class="step compact"><span class="num">5</span><div><b>Error Lens</b><span>Lihat error inline saat coding, bukan di console</span></div></div>
+        </div>
+      </div>
+      <div class="mini-ai"><div class="top">Cara Install Extension</div><div class="tabs"><span>Simple</span><span>Easy</span><span>Fast</span></div><div class="sheet" style="font-size:12px;line-height:1.6;">
+        <b style="color:var(--vscode)">1.</b> Ctrl+Shift+X → buka Extensions<br>
+        <b style="color:var(--vscode)">2.</b> Cari extension name<br>
+        <b style="color:var(--vscode)">3.</b> Klik install → selesai!
+      </div></div>
+      <p class="quote" style="top:100px;width:600px">
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span></span><span class="active"></span><span></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">06 / 07</div><div class="pill">TIPS PRODUKTIVITAS</div>
+      <h2 class="content-title">Cara Bekerja <span class="blue">Lebih Efisien</span> di VS Code</h2>
+      <p class="lead">Interface bagus + shortcut cepat + workflow smart = produktivitas maksimal.</p>
+      <div class="main-card" style="top:480px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div style="background:#f0f6ff;border:1px solid #d4e4ff;padding:20px;border-radius:16px">
+            <h3 style="color:#0078d4;font-size:18px;margin:0 0 12px">💡 Setup Workspace</h3>
+            <p style="font-size:13px;line-height:1.5;color:#102033;margin:0">Buat workspace project baru: File → Save Workspace As</p>
+          </div>
+          <div style="background:#f0f6ff;border:1px solid #d4e4ff;padding:20px;border-radius:16px">
+            <h3 style="color:#0078d4;font-size:18px;margin:0 0 12px">⚙️ Customize Settings</h3>
+            <p style="font-size:13px;line-height:1.5;color:#102033;margin:0">Settings.json untuk config advanced: Ctrl+Shift+P → Preferences: Open Settings (JSON)</p>
+          </div>
+          <div style="background:#f0f6ff;border:1px solid #d4e4ff;padding:20px;border-radius:16px;grid-column:1/-1">
+            <h3 style="color:#0078d4;font-size:18px;margin:0 0 12px">🎨 Theme & Font</h3>
+            <p style="font-size:13px;line-height:1.5;color:#102033;margin:0">Pilih theme yang nyaman untuk mata (Dark, Light, atau custom). Font recommendation: Fira Code, JetBrains Mono</p>
+          </div>
+        </div>
+      </div>
+      <p class="quote" style="top:870px;width:600px"><strong>Workflow yang baik</strong> dimulai dari setup environment yang tepat. Jangan malas untuk customize.</p>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span></span><span></span><span class="active"></span><span></span></div></div>
+    </section>
+
+    <section class="slide" id="slide-7">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div><div class="slide-no">07 / 07</div><div class="pill">MULAI SEKARANG</div>
+      <h2 class="content-title">Siap Kuasai <span class="blue">VS Code</span>?</h2>
+      <p class="lead">Tidak perlu expert. Semua orang bisa jadi master VS Code dengan practice rutin.</p>
+      <div class="final-panel"><h2>5 Langkah Mulai VS Code</h2><p>Ikuti roadmap ini dan Anda akan productive di VS Code dalam waktu singkat.</p><div class="toc-lines"><div class="toc-row">Install VS Code <span></span> Download dari code.visualstudio.com</div><div class="toc-row">Pahami Interface <span></span> Eksplorasi 5 area utama</div><div class="toc-row">Install Extensions <span></span> Tambahkan extension yang Anda butuhkan</div><div class="toc-row">Hafal Shortcuts <span></span> Practice 5-10 shortcut penting setiap hari</div><div class="toc-row">Build Projects <span></span> Mulai code project real sebagai practice</div></div></div>
+      <div class="final-cta">VS Code bukan hanya editor. Ini adalah investment untuk skill coding Anda. Mulai dari sekarang dan lihat perbedaannya.<div class="tag">Follow untuk VS Code tips, tricks, dan extension recommendations setiap minggu.</div></div>
+      <p class="quote" style="top:950px;font-size:20px"><strong>Consistency + Practice = Mastery.</strong> Semakin sering Anda pakai VS Code, semakin expert Anda nantinya.</p>
+      <div class="mini-footer"><span>@solusi.by.aldoferdii</span><div class="progress"><span></span><span></span><span></span><span></span><span></span><span></span><span class="active"></span></div></div>
+    </section>
+  </main>
+</body>
+</html>
