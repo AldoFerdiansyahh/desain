@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Asanix Java Tech - Instagram Feed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-main:'Work Sans',sans-serif;
+  --font-display:'Space Grotesk',sans-serif;
+  --black:#050507;
+  --dark:#09090d;
+  --card:#15151b;
+  --card2:#202029;
+  --red:#f20b18;
+  --red2:#8e0009;
+  --white:#ffffff;
+  --muted:#b9bac6;
+  --line:rgba(255,255,255,.1);
+}
+*{box-sizing:border-box} body{margin:0;background:#111;font-family:var(--font-main);}
+.sheet{display:flex;gap:24px;padding:24px;flex-wrap:wrap}.post{width:1080px;height:1350px;position:relative;overflow:hidden;background:radial-gradient(circle at 12% 12%,rgba(242,11,24,.32),transparent 30%),linear-gradient(135deg,#160006 0%,#050507 45%,#101016 100%);color:#fff;padding:78px 74px;isolation:isolate}.post:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),rgba(0,0,0,.25));z-index:-2}.post:after{content:"";position:absolute;width:650px;height:650px;border-radius:999px;background:radial-gradient(circle,rgba(242,11,24,.22),transparent 63%);right:-260px;bottom:-220px;z-index:-1}.brand{display:flex;align-items:center;gap:18px}.brand img{height:74px;max-width:255px;object-fit:contain}.brand .name{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1}.brand .name span{font-family:var(--font-main);display:block;letter-spacing:7px;font-size:13px;color:#ddd;margin-top:7px}.eyebrow{margin-top:105px;font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:4px;color:var(--red);text-transform:uppercase;display:flex;align-items:center;gap:17px}.eyebrow:before{content:"";width:58px;height:3px;background:var(--red)}h1{font-family:var(--font-display);font-weight:700;letter-spacing:-4px;line-height:.94;font-size:91px;margin:30px 0 0}.sub{font-size:30px;line-height:1.45;color:#e8e8ef;margin-top:34px;max-width:760px}.pills{display:flex;gap:16px;flex-wrap:wrap;margin-top:42px}.pill{border:1px solid var(--line);background:rgba(255,255,255,.06);backdrop-filter:blur(12px);padding:18px 26px;border-radius:999px;font-weight:700;font-size:21px}.pill.red{background:var(--red);border-color:var(--red)}.codecard{position:absolute;right:62px;bottom:88px;width:470px;border-radius:34px;background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.15);box-shadow:0 40px 110px rgba(0,0,0,.45);padding:38px;font-family:var(--font-display);transform:rotate(-2deg)}.dots{display:flex;gap:13px;margin-bottom:34px}.dot{width:17px;height:17px;border-radius:50%;background:#ddd}.dot:first-child{background:var(--red)}.code{font-size:23px;line-height:1.85;color:#f1f1f5}.code b{color:var(--red);font-weight:700}.bigLogo{position:absolute;right:70px;top:105px;width:235px;opacity:.95}.center{text-align:center}.post.center{display:flex;flex-direction:column;align-items:center}.center .mainlogo{width:800px;margin-top:105px;filter:drop-shadow(0 25px 70px rgba(0,0,0,.45))}.center h1{font-size:86px;max-width:920px;margin-top:82px}.center .sub{max-width:820px;margin-left:auto;margin-right:auto}.services{margin-top:58px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%}.svc{background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:28px;padding:26px 20px}.svc strong{font-family:var(--font-display);font-size:25px}.svc span{display:block;margin-top:9px;color:var(--muted);font-size:17px}.workflow{margin-top:60px;display:grid;gap:22px}.step{display:grid;grid-template-columns:82px 1fr;gap:20px;align-items:center;background:linear-gradient(90deg,rgba(255,255,255,.11),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:28px;padding:24px}.num{width:68px;height:68px;border-radius:23px;background:var(--red);display:grid;place-items:center;font-family:var(--font-display);font-size:27px;font-weight:700}.step h3{font-family:var(--font-display);font-size:32px;margin:0}.step p{font-size:20px;color:var(--muted);margin:7px 0 0}.right h1{font-size:82px}.phone{position:absolute;right:64px;bottom:80px;width:350px;height:620px;border-radius:54px;background:linear-gradient(180deg,#22232b,#0c0c10);border:1px solid rgba(255,255,255,.16);box-shadow:0 35px 120px rgba(0,0,0,.55);padding:38px}.bar{height:14px;width:130px;background:#050507;border-radius:999px;margin:0 auto 38px}.mock{height:74px;border-radius:20px;background:rgba(255,255,255,.08);margin-bottom:18px}.mock.red{background:linear-gradient(90deg,var(--red),var(--red2));height:170px}.handle{position:absolute;left:74px;bottom:72px;font-weight:700;color:#dadbe3;font-size:23px}.handle span{color:var(--red)}
+</style>
+</head>
+<body>
+<div class="sheet">
+<section class="post left" id="feed-1">
+  <div class="brand"><img src="logo_wordmark.png"><div class="name">Asanix<span>JAVA TECH</span></div></div>
+  <img class="bigLogo" src="logo_icon.png">
+  <div class="eyebrow">Website Audit</div>
+  <h1>Your Website Deserves Better.</h1>
+  <p class="sub">Website lambat, tampilan kurang rapi, atau performa belum maksimal? Saatnya audit dan optimasi digital presence kamu.</p>
+  <div class="pills"><div class="pill red">Performance</div><div class="pill">SEO</div><div class="pill">UI/UX</div></div>
+  <div class="handle"><span>@</span>asanixjava.tech</div>
+</section>
+<section class="post center" id="feed-2">
+  <div class="brand"><img src="logo_icon.png"><div class="name">Asanix<span>JAVA TECH</span></div></div>
+  <img class="mainlogo" src="logo_wordmark.png">
+  <h1>Build, Optimize, and Audit Your Digital Presence.</h1>
+  <p class="sub">Partner solusi website profesional untuk bisnis, organisasi, startup, dan personal brand.</p>
+  <div class="services"><div class="svc"><strong>Web Dev</strong><span>Website modern</span></div><div class="svc"><strong>UI/UX</strong><span>Design clean</span></div><div class="svc"><strong>Audit</strong><span>Improve quality</span></div></div>
+  <div class="handle"><span>@</span>asanixjava.tech</div>
+</section>
+<section class="post right" id="feed-3">
+  <div class="brand"><img src="logo_wordmark.png"><div class="name">Asanix<span>JAVA TECH</span></div></div>
+  <div class="eyebrow">Our Workflow</div>
+  <h1>From Idea to High-Performance Website.</h1>
+  <div class="workflow">
+    <div class="step"><div class="num">01</div><div><h3>Research</h3><p>Memahami kebutuhan dan target user.</p></div></div>
+    <div class="step"><div class="num">02</div><div><h3>Design & Build</h3><p>Membuat tampilan modern dan responsive.</p></div></div>
+    <div class="step"><div class="num">03</div><div><h3>Audit & Launch</h3><p>Mengecek performa sebelum dipublikasikan.</p></div></div>
+  </div>
+  <div class="phone"><div class="bar"></div><div class="mock red"></div><div class="mock"></div><div class="mock"></div><div class="mock"></div></div>
+  <div class="handle"><span>@</span>asanixjava.tech</div>
+</section>
+</div>
+</body>
+</html>

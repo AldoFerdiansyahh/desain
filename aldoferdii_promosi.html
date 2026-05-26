@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AldoFerdii.Solusi - Feed Kiri & Kanan</title>
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+    :root{
+      --navy:#07162d;
+      --gold:#d4a574;
+      --gold2:#e6b87e;
+      --ink:#102033;
+      --line:rgba(255,255,255,.14);
+    }
+
+    *{box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    body{margin:0;background:#dfe7f3;color:#fff;}
+    .deck{display:flex;width:max-content;gap:0;}
+
+    .slide{
+      position:relative;
+      width:1080px;
+      height:1350px;
+      overflow:hidden;
+      background:linear-gradient(135deg,var(--navy) 0%,#0b1d35 55%,#10294a 100%);
+    }
+
+    .slide::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 10% 8%,rgba(212,165,116,.24),transparent 28%),
+        radial-gradient(circle at 88% 14%,rgba(255,255,255,.09),transparent 22%),
+        radial-gradient(circle at 50% 90%,rgba(77,154,255,.09),transparent 30%);
+    }
+
+    .slide::after{
+      content:"";
+      position:absolute;
+      right:-260px;
+      bottom:-280px;
+      width:680px;
+      height:680px;
+      border-radius:50%;
+      background:rgba(212,165,116,.11);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand{
+      position:absolute;
+      left:72px;
+      top:58px;
+      font-weight:800;
+      font-size:34px;
+      letter-spacing:-1.2px;
+      z-index:5;
+    }
+
+    .brand .blue{color:#4d9aff;}
+    .brand .gray{color:#93a4ba;}
+
+    .tag-top{
+      position:absolute;
+      left:72px;
+      top:138px;
+      padding:12px 24px;
+      border-radius:999px;
+      background:rgba(212,165,116,.95);
+      box-shadow:0 14px 32px rgba(212,165,116,.25);
+      font-size:16px;
+      font-weight:800;
+      color:#fff;
+      z-index:5;
+    }
+
+    .big-title{
+      position:absolute;
+      left:72px;
+      top:255px;
+      width:760px;
+      margin:0;
+      font-size:74px;
+      line-height:1.08;
+      letter-spacing:-2.6px;
+      font-weight:800;
+      z-index:5;
+    }
+
+    .big-title strong{color:var(--gold);font-weight:900;}
+
+    .subtitle{
+      position:absolute;
+      left:72px;
+      top:560px;
+      width:620px;
+      font-size:23px;
+      line-height:1.55;
+      color:#dce8f7;
+      margin:0;
+      z-index:5;
+    }
+
+    .visual-wrap{
+      position:absolute;
+      right:72px;
+      top:300px;
+      width:285px;
+      height:440px;
+      z-index:4;
+    }
+
+    .float-icon{
+      position:absolute;
+      width:116px;
+      height:116px;
+      border-radius:30px;
+      background:rgba(255,255,255,.09);
+      border:1px solid var(--line);
+      display:grid;
+      place-items:center;
+      backdrop-filter:blur(10px);
+      box-shadow:0 20px 48px rgba(0,0,0,.18);
+    }
+
+    .float-icon iconify-icon{font-size:60px;color:var(--gold2);}
+    .i1{left:0;top:10px;transform:rotate(-8deg);}
+    .i2{right:0;top:120px;transform:rotate(8deg);}
+    .i3{left:24px;bottom:20px;transform:rotate(5deg);}
+
+    .main-card{
+      position:absolute;
+      left:72px;
+      right:72px;
+      top:760px;
+      background:#fff;
+      color:var(--ink);
+      border-radius:38px;
+      padding:38px;
+      box-shadow:0 26px 70px rgba(0,0,0,.24);
+      z-index:5;
+    }
+
+    .main-card h2{
+      font-size:34px;
+      margin:0 0 22px;
+      line-height:1.2;
+    }
+
+    .problem-list,.service-grid{display:grid;gap:16px;}
+
+    .problem-item{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:18px 20px;
+      border-radius:22px;
+      background:#f5ede2;
+      border:1px solid #e6d5c3;
+      font-size:19px;
+      font-weight:700;
+    }
+
+    .problem-item iconify-icon{
+      font-size:32px;
+      color:var(--gold);
+      min-width:32px;
+    }
+
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+
+    .service-box{
+      min-height:138px;
+      padding:22px 20px;
+      border-radius:24px;
+      background:#f5ede2;
+      border:1px solid #e6d5c3;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:12px;
+    }
+
+    .service-box iconify-icon{font-size:42px;color:var(--gold);}
+    .service-box b{font-size:19px;line-height:1.25;color:#102033;}
+
+    .bottom-hook{
+      position:absolute;
+      left:72px;
+      right:72px;
+      bottom:126px;
+      z-index:5;
+      padding:26px 34px;
+      border-radius:30px;
+      background:linear-gradient(90deg,var(--gold),var(--gold2));
+      color:#102033;
+      font-size:25px;
+      line-height:1.35;
+      font-weight:800;
+      text-align:center;
+      box-shadow:0 22px 50px rgba(212,165,116,.24);
+    }
+
+    .footer{
+      position:absolute;
+      left:72px;
+      bottom:48px;
+      z-index:5;
+      color:#dce8f8;
+      font-size:15px;
+      font-weight:500;
+    }
+
+    .right .main-card{top:735px;}
+    .right .visual-wrap{top:280px;}
+  </style>
+</head>
+
+<body>
+  <main class="deck">
+
+    <!-- POST KIRI -->
+    <section id="slide-1" class="slide post left">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div>
+      <div class="tag-top">PROBLEM</div>
+
+      <h1 class="big-title">Deadline Mepet? Tugas <strong>Numpuk?</strong></h1>
+      <p class="subtitle">Tenang, kamu nggak harus ngerjain semuanya sendirian. Biar tugas tetap aman, rapi, dan selesai tepat waktu.</p>
+
+      <div class="visual-wrap">
+        <div class="float-icon i1"><iconify-icon icon="mdi:clock-alert-outline"></iconify-icon></div>
+        <div class="float-icon i2"><iconify-icon icon="mdi:book-open-page-variant"></iconify-icon></div>
+        <div class="float-icon i3"><iconify-icon icon="mdi:lightning-bolt"></iconify-icon></div>
+      </div>
+
+      <div class="main-card">
+        <h2>Biasanya masalahnya ini...</h2>
+        <div class="problem-list">
+          <div class="problem-item"><iconify-icon icon="mdi:calendar-clock"></iconify-icon><span>Deadline terlalu dekat</span></div>
+          <div class="problem-item"><iconify-icon icon="mdi:brain"></iconify-icon><span>Bingung mulai dari mana</span></div>
+          <div class="problem-item"><iconify-icon icon="mdi:laptop"></iconify-icon><span>Tugas numpuk bareng kerjaan lain</span></div>
+        </div>
+      </div>
+
+      <div class="bottom-hook">Geser ke postingan tengah buat lihat solusinya!</div>
+      <div class="footer">solusi.by.aldoferdii</div>
+    </section>
+
+    <!-- POST KANAN -->
+    <section id="slide-2" class="slide post right">
+      <div class="brand">Aldo<span class="blue">Ferdii</span><span class="gray">.Solusi</span></div>
+      <div class="tag-top">SOLUTION</div>
+
+      <h1 class="big-title">Satu Solusi Buat <strong>Semua Tugas</strong></h1>
+      <p class="subtitle">Dari tugas kuliah, laporan, PPT, desain, sampai coding — dibantu biar hasilnya lebih rapi dan profesional.</p>
+
+      <div class="visual-wrap">
+        <div class="float-icon i1"><iconify-icon icon="mdi:check-decagram"></iconify-icon></div>
+        <div class="float-icon i2"><iconify-icon icon="mdi:rocket-launch"></iconify-icon></div>
+        <div class="float-icon i3"><iconify-icon icon="mdi:shield-check"></iconify-icon></div>
+      </div>
+
+      <div class="main-card">
+        <h2>Yang bisa dibantu</h2>
+        <div class="service-grid">
+          <div class="service-box"><iconify-icon icon="mdi:file-document-edit-outline"></iconify-icon><b>Makalah & Laporan</b></div>
+          <div class="service-box"><iconify-icon icon="mdi:presentation-play"></iconify-icon><b>PowerPoint</b></div>
+          <div class="service-box"><iconify-icon icon="mdi:code-braces"></iconify-icon><b>Coding & Website</b></div>
+          <div class="service-box"><iconify-icon icon="mdi:palette-outline"></iconify-icon><b>Desain Konten</b></div>
+        </div>
+      </div>
+
+      <div class="bottom-hook">Butuh bantuan? DM sekarang atau klik link di bio!</div>
+      <div class="footer">solusi.by.aldoferdii</div>
+    </section>
+
+  </main>
+</body>
+</html>
